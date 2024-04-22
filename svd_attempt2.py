@@ -8,10 +8,7 @@ def svd_2(A, u, v, s, n_dim, n_iter, atol):
     warn = False
 
     for d in range(n_dim):
-        if d == 1:
-            X_res = A - np.dot(u[:, :d], np.dot(np.diag(s[:d]), v[:, :d].T))
-        elif d > 1:
-            X_res = A - np.dot(u[:, :d], np.dot(np.diag(s[:d]), v[:, :d].T))
+        X_res = A - np.dot(u[:, :d], np.dot(np.diag(s[:d]), v[:, :d].T))
 
         u_old = u[:, d].copy()
         u_new = u[:, d].copy()
@@ -23,7 +20,6 @@ def svd_2(A, u, v, s, n_dim, n_iter, atol):
 
         while not converged:
             iter_count += 1
-
             u_new = np.dot(X_res, v_new)
             u_new = u_new / np.sqrt(np.sum(u_new * u_new))
             v_new = np.dot(X_res.T, u_new)
